@@ -27,12 +27,13 @@ abstract class BindableBase extends ChangeNotifier {
     super.dispose();
   }
 
-  void ensureRunAfterContextAssigned(VoidCallback task){
+  FutureOr<void> ensureRunAfterContextAssigned(FutureOr<void> Function() task)
+  async {
     if(task == null) return;
     if(context == null)
       contextNotifier.addListener(task);
     else
-      task();
+      await task();
   }
 }
 
