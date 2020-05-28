@@ -27,10 +27,10 @@ abstract class BindableBase extends ChangeNotifier {
     super.dispose();
   }
 
-  FutureOr<void> ensureRunAfterContextAssigned(FutureOr<void> Function() task)
-  async {
-    if(task == null) return;
-    if(context == null)
+  FutureOr<void> ensureRunAfterContextAssigned(
+      FutureOr<void> Function() task) async {
+    if (task == null) return;
+    if (context == null)
       contextNotifier.addListener(task);
     else
       await task();
@@ -39,9 +39,11 @@ abstract class BindableBase extends ChangeNotifier {
 
 class InitParam {
   final dynamic param;
+  final String hashAnchor;
 
   InitParam({
     this.param,
+    this.hashAnchor,
   });
 }
 
