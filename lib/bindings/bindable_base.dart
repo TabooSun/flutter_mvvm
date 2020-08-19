@@ -26,27 +26,31 @@ abstract class BindableBase extends ChangeNotifier {
     contextNotifier.dispose();
     super.dispose();
   }
-
-  FutureOr<void> ensureRunAfterContextAssigned(
-      FutureOr<void> Function() task) async {
-    if (task == null) return;
-    if (context == null)
-      contextNotifier.addListener(task);
-    else
-      await task();
-  }
 }
 
 class InitParam {
   final dynamic param;
   final String hashAnchor;
+  final Map<String, List<String>> deepLinkRouteParam;
 
   InitParam({
     this.param,
     this.hashAnchor,
+    this.deepLinkRouteParam,
   });
+
+  InitParam copyWith({
+    param,
+    hashAnchor,
+    deepLinkRouteParam,
+  }) =>
+      InitParam(
+        param: param ?? this.param,
+        deepLinkRouteParam: deepLinkRouteParam ?? this.deepLinkRouteParam,
+        hashAnchor: hashAnchor ?? this.hashAnchor,
+      );
 }
 
-bool isDeepLinkRouteParam(dynamic param) {
+bool checkIsMap(dynamic param) {
   return param is Map<String, List<String>>;
 }
