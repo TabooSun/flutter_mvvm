@@ -2,6 +2,7 @@ part of flutter_mvvm.bindings;
 
 abstract class BindableBase extends ChangeNotifier {
   Widget boundView;
+  String boundViewName;
 
   BuildContext get context => contextNotifier.value;
 
