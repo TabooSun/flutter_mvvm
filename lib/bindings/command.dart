@@ -4,7 +4,7 @@ typedef Func = bool Function();
 
 class AppCommand<T> extends Command<T> {
   AppCommand.withArgument(
-    Function(T args) execute, {
+    FutureOr<void> Function(T args) execute, {
     Func canExecute,
   }) : super(
           execute,
@@ -12,7 +12,7 @@ class AppCommand<T> extends Command<T> {
         );
 
   AppCommand(
-    Function() execute, {
+    FutureOr<void> Function() execute, {
     Func canExecute,
   }) : super(
           (_) => execute(),
@@ -40,7 +40,7 @@ abstract class Command<T extends Object> {
   }) {
     assert(handleCanExecute != null);
 
-    final executeIfCanHandler = () => executeIfCan(args: args);
+    final executeIfCanHandler = () async => await executeIfCan(args: args);
     return (handleCanExecute && !canExecute)
         ? null
         : customHandler != null
@@ -55,10 +55,9 @@ abstract class Command<T extends Object> {
     this._canExecute = canExecute;
   }
 
-  void executeIfCan({T args}) {
+  FutureOr<void> executeIfCan({T args}) {
     if (canExecute) {
-      execute(args);
-      return;
+      return execute(args);
     }
   }
 }
