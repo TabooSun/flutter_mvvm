@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
   provider: ^4.0.4
   async: ^2.2.0
+  quiver: ^2.1.5
+  crypto: ^2.1.5
 
 dev_dependencies:
   flutter_test:

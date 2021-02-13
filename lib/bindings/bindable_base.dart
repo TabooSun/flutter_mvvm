@@ -41,9 +41,9 @@ class InitParam {
   });
 
   InitParam copyWith({
-    param,
-    hashAnchor,
-    deepLinkRouteParam,
+    dynamic param,
+    String hashAnchor,
+    Map<String, List<String>> deepLinkRouteParam,
   }) =>
       InitParam(
         param: param ?? this.param,
