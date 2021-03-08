@@ -1,20 +1,21 @@
 part of flutter_mvvm.bindings;
 
 abstract class BindableBase extends ChangeNotifier {
-  Widget boundView;
-  String boundViewName;
+  Widget? boundView;
+  String? boundViewName;
 
-  BuildContext get context => contextNotifier.value;
+  BuildContext? get context => contextNotifier.value;
 
-  set context(BuildContext value) {
+  set context(BuildContext? value) {
     contextNotifier.value = value;
   }
 
-  ValueNotifier<BuildContext> contextNotifier = ValueNotifier(null);
+  ValueNotifier<BuildContext?> contextNotifier = ValueNotifier(null);
 
-  Function onContextAssigned;
+  @deprecated
+  Function? onContextAssigned;
 
-  Future<void> initAsync({InitParam param}) async {
+  Future<void> initAsync({InitParam? param}) async {
     return Future.value(null);
   }
 
@@ -31,8 +32,8 @@ abstract class BindableBase extends ChangeNotifier {
 
 class InitParam {
   final dynamic param;
-  final String hashAnchor;
-  final Map<String, List<String>> deepLinkRouteParam;
+  final String? hashAnchor;
+  final Map<String, List<String>>? deepLinkRouteParam;
 
   InitParam({
     this.param,

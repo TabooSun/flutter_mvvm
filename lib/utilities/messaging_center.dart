@@ -4,7 +4,7 @@ typedef void MessageCallBack(MessageData data);
 
 class MessageData {
   final Object sender;
-  final Object args;
+  final Object? args;
 
   MessageData(this.sender, this.args);
 }
@@ -39,7 +39,7 @@ class MessagingCenter {
       '''You cannot subscribe to the same event (messageKey) with same 
       subsriber, if you want to do so, please unsubscribe and resubscribe.''',
     );
-    var subscription = _messages[messageKey].stream.listen(callBack);
+    var subscription = _messages[messageKey]!.stream.listen(callBack);
     _subscriptions[hashedKey] = subscription;
     return subscription;
   }
