@@ -38,13 +38,11 @@ abstract class Command<T extends Object?> {
     bool handleCanExecute = false,
     void Function(VoidCallback)? customHandler,
   }) {
-    assert(handleCanExecute != null);
-
     final executeIfCanHandler = () async => await executeIfCan(args: args);
     return (handleCanExecute && !canExecute)
         ? null
         : customHandler != null
-            ? () => customHandler?.call(executeIfCanHandler)
+            ? () => customHandler.call(executeIfCanHandler)
             : executeIfCanHandler;
   }
 
