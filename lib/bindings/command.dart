@@ -14,7 +14,7 @@ class AppCommand<T> extends Command<T> {
   AppCommand(
     FutureOr<void> Function() execute, {
     Func? canExecute,
-  }) : super(
+  }) : super.nullable(
           (_) => execute(),
           canExecute: canExecute,
         );
@@ -22,7 +22,10 @@ class AppCommand<T> extends Command<T> {
 
 abstract class Command<T> {
   @protected
-  FutureOr<void> Function(T args) execute;
+  FutureOr<void> Function(T args)? execute;
+
+  @protected
+  FutureOr<void> Function(T? args)? nullableInputExecute;
 
   bool get canExecute => _canExecute == null ? true : _canExecute!();
 
@@ -34,7 +37,7 @@ abstract class Command<T> {
   /// If [handleCanExecute] is true, disable Flutter widget if [canExecute]
   /// return false. Default to false.
   VoidCallback? toVoidCallback({
-    required T args,
+    T? args,
     bool handleCanExecute = false,
     void Function(VoidCallback)? customHandler,
   }) {
@@ -46,6 +49,13 @@ abstract class Command<T> {
             : executeIfCanHandler;
   }
 
+  Command.nullable(
+    this.nullableInputExecute, {
+    Func? canExecute,
+  }) {
+    this._canExecute = canExecute;
+  }
+
   Command(
     this.execute, {
     Func? canExecute,
@@ -53,9 +63,13 @@ abstract class Command<T> {
     this._canExecute = canExecute;
   }
 
-  FutureOr<void> executeIfCan({required T args}) {
+  FutureOr<void> executeIfCan({T? args}) {
     if (canExecute) {
-      return execute(args);
+      if(args ==null) {
+        return nullableInputExecute!(args);
+      }
+
+      return execute!(args);
     }
   }
 }
