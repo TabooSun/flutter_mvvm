@@ -4,13 +4,7 @@ abstract class BindableBase extends ChangeNotifier {
   Widget? boundView;
   String? boundViewName;
 
-  BuildContext? get context => contextNotifier.value;
-
-  set context(BuildContext? value) {
-    contextNotifier.value = value;
-  }
-
-  ValueNotifier<BuildContext?> contextNotifier = ValueNotifier(null);
+  late final BuildContext context;
 
   @deprecated
   Function? onContextAssigned;
@@ -21,12 +15,6 @@ abstract class BindableBase extends ChangeNotifier {
 
   Future<void> unInitAsync() async {
     return Future.value(null);
-  }
-
-  @override
-  void dispose() {
-    contextNotifier.dispose();
-    super.dispose();
   }
 }
 
