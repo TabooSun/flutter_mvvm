@@ -4,7 +4,7 @@ typedef Func = bool Function();
 
 class AppCommand<T> extends Command<T> {
   AppCommand.withArgument(
-    FutureOr<void> Function(T? args) execute, {
+    FutureOr<void> Function(T args) execute, {
     Func? canExecute,
   }) : super(
           execute,
@@ -20,9 +20,9 @@ class AppCommand<T> extends Command<T> {
         );
 }
 
-abstract class Command<T extends Object?> {
+abstract class Command<T> {
   @protected
-  Function(T? args) execute;
+  FutureOr<void> Function(T args) execute;
 
   bool get canExecute => _canExecute == null ? true : _canExecute!();
 
@@ -34,7 +34,7 @@ abstract class Command<T extends Object?> {
   /// If [handleCanExecute] is true, disable Flutter widget if [canExecute]
   /// return false. Default to false.
   VoidCallback? toVoidCallback({
-    T? args,
+    required T args,
     bool handleCanExecute = false,
     void Function(VoidCallback)? customHandler,
   }) {
@@ -53,7 +53,7 @@ abstract class Command<T extends Object?> {
     this._canExecute = canExecute;
   }
 
-  FutureOr<void> executeIfCan({T? args}) {
+  FutureOr<void> executeIfCan({required T args}) {
     if (canExecute) {
       return execute(args);
     }
