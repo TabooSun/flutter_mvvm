@@ -9,7 +9,7 @@ abstract class BindableBase extends ChangeNotifier {
   @deprecated
   Function? onContextAssigned;
 
-  Future<void> initAsync({InitParam? param}) async {
+  Future<void> initAsync({required InitParam param}) async {
     return Future.value(null);
   }
 
