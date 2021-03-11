@@ -23,16 +23,16 @@ class InitParam {
   final String? hashAnchor;
   final Map<String, List<String>>? deepLinkRouteParam;
 
-  InitParam({
+  const InitParam({
     this.param,
     this.hashAnchor,
     this.deepLinkRouteParam,
   });
 
   InitParam copyWith({
-    param,
-    hashAnchor,
-    deepLinkRouteParam,
+    dynamic param,
+    String? hashAnchor,
+    Map<String, List<String>>? deepLinkRouteParam,
   }) =>
       InitParam(
         param: param ?? this.param,
