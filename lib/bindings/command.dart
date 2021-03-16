@@ -1,10 +1,11 @@
 part of flutter_mvvm.bindings;
 
 typedef Func = bool Function();
+typedef NullableInputFactory<T> = FutureOr<void> Function(T? args);
 
 class AppCommand<T> extends Command<T> {
   AppCommand.withArgument(
-    FutureOr<void> Function(T args) execute, {
+    NullableInputFactory<T> execute, {
     Func? canExecute,
   }) : super(
           execute,
@@ -14,7 +15,7 @@ class AppCommand<T> extends Command<T> {
   AppCommand(
     FutureOr<void> Function() execute, {
     Func? canExecute,
-  }) : super.nullable(
+  }) : this.withArgument(
           (_) => execute(),
           canExecute: canExecute,
         );
@@ -22,10 +23,7 @@ class AppCommand<T> extends Command<T> {
 
 abstract class Command<T> {
   @protected
-  FutureOr<void> Function(T args)? execute;
-
-  @protected
-  FutureOr<void> Function(T? args)? nullableInputExecute;
+  final FutureOr<void> Function(T? args) execute;
 
   bool get canExecute => _canExecute == null ? true : _canExecute!();
 
@@ -49,13 +47,6 @@ abstract class Command<T> {
             : executeIfCanHandler;
   }
 
-  Command.nullable(
-    this.nullableInputExecute, {
-    Func? canExecute,
-  }) {
-    this._canExecute = canExecute;
-  }
-
   Command(
     this.execute, {
     Func? canExecute,
@@ -65,11 +56,7 @@ abstract class Command<T> {
 
   FutureOr<void> executeIfCan({T? args}) {
     if (canExecute) {
-      if(args ==null) {
-        return nullableInputExecute!(args);
-      }
-
-      return execute!(args);
+      return execute(args);
     }
   }
 }
