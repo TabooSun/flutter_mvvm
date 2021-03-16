@@ -4,7 +4,7 @@ abstract class BindableBase extends ChangeNotifier {
   Widget? boundView;
   String? boundViewName;
 
-  late final BuildContext context;
+  late BuildContext context;
 
   @deprecated
   Function? onContextAssigned;
