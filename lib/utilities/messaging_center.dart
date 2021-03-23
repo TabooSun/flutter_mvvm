@@ -4,7 +4,7 @@ typedef void MessageCallBack(MessageData data);
 
 class MessageData {
   final Object sender;
-  final Object args;
+  final Object? args;
 
   MessageData(this.sender, this.args);
 }
@@ -28,8 +28,6 @@ class MessagingCenter {
     MessageCallBack callBack,
   ) {
     assert(isNotBlank(messageKey), "messageKey must not be empty");
-    assert(subscriber != null, "subscriber must not be null");
-    assert(callBack != null, "callBack must not be null");
 
     _createStreamCtrlByMessageKeyIfAbsent(messageKey);
 
@@ -39,14 +37,13 @@ class MessagingCenter {
       '''You cannot subscribe to the same event (messageKey) with same 
       subsriber, if you want to do so, please unsubscribe and resubscribe.''',
     );
-    var subscription = _messages[messageKey].stream.listen(callBack);
+    var subscription = _messages[messageKey]!.stream.listen(callBack);
     _subscriptions[hashedKey] = subscription;
     return subscription;
   }
 
   static Future<void> unsubscribe(String messageKey, Object subscriber) async {
     assert(isNotBlank(messageKey), "messageKey must not be empty");
-    assert(subscriber != null, "subscriber must not be null");
 
     String hashedKey = _getHashedKey(messageKey, subscriber);
     var subscription = _subscriptions.remove(hashedKey);
@@ -72,7 +69,7 @@ class MessagingCenter {
   }
 
   static String _getHashedKey(String messageKey, Object subscriber) {
-    var bytes = utf8.encode(messageKey + subscriber?.hashCode?.toString());
+    var bytes = utf8.encode(messageKey + subscriber.hashCode.toString());
     var digest = sha256.convert(bytes);
     return digest.toString();
   }

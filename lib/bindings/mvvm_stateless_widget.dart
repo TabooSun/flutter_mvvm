@@ -6,13 +6,7 @@ abstract class MvvmStatelessWidget<V extends BindableBase>
 
   V get bindableBase => _bindableBase;
 
-  MvvmStatelessWidget(this._bindableBase, {Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-//    bindableBase.context = context;
-    return null;
-  }
+  MvvmStatelessWidget(this._bindableBase, {Key? key}) : super(key: key);
 
   void dispose() {}
 }
