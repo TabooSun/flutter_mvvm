@@ -1,13 +1,20 @@
 part of flutter_mvvm.bindings;
 
 abstract class BindableBase extends ChangeNotifier {
+  /// The view of this view model.
   Widget? boundView;
+
+  /// The [boundView]'s name.
   String? boundViewName;
 
-  late BuildContext context;
+  /// The route that renders the [boundView].
+  Route<dynamic>? route;
 
-  @deprecated
-  Function? onContextAssigned;
+  /// ## The context from [boundView].
+  ///
+  /// This is often being assigned from the [StatelessWidget.build] or
+  /// [StatefulElement.build].
+  late BuildContext context;
 
   Future<void> initAsync({required InitParam param}) async {
     return Future.value(null);

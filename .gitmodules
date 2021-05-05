@@ -1,0 +1,3 @@
+[submodule "tools/release"]
+	path = tools/release
+	url = git@bitbucket.org:HealthMetricsCo/hms-memberapp-futter-flutter_release.git
