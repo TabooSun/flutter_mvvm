@@ -8,7 +8,7 @@ abstract class BindableBase extends ChangeNotifier {
   String? boundViewName;
 
   /// The route that renders the [boundView].
-  Route<dynamic>? route;
+  Route<dynamic>? boundRoute;
 
   /// ## The context from [boundView].
   ///
