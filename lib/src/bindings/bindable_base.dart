@@ -14,7 +14,28 @@ abstract class BindableBase extends ChangeNotifier {
   ///
   /// This is often being assigned from the [StatelessWidget.build] or
   /// [StatefulElement.build].
-  late BuildContext context;
+  BuildContext? _context;
+
+  /// ## The context from [boundView].
+  ///
+  /// This is often being assigned from the [StatelessWidget.build] or
+  /// [StatefulElement.build].
+  BuildContext get context => _context ?? retrieveFallbackContext();
+
+  /// ## The context from [boundView].
+  ///
+  /// This is often being assigned from the [StatelessWidget.build] or
+  /// [StatefulElement.build].
+  set context(BuildContext context) {
+    _context = context;
+  }
+
+  /// Retrieve fallback context.
+  ///
+  /// Subclasses must override this to provide a fallback context.
+  ///
+  /// This is typically from [WidgetsApp.builder]'s [TransitionBuilder].
+  BuildContext retrieveFallbackContext();
 
   Future<void> initAsync({required InitParam param}) async {
     return Future.value(null);

@@ -2,8 +2,7 @@ library flutter_mvvm.bindings;
 
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter/widgets.dart';
 
 part 'bindable_base.dart';
 

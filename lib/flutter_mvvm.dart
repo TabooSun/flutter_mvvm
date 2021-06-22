@@ -1,4 +1,4 @@
 library flutter_mvvm;
 
-export 'bindings/bindings.dart';
-export 'utilities/utilities.dart';
+export 'src/bindings/bindings.dart';
+export 'src/utilities/utilities.dart';
