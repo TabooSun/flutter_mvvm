@@ -1,6 +1,6 @@
 part of flutter_mvvm.utilities;
 
-typedef void MessageCallBack(MessageData data);
+typedef MessageCallBack = void Function(MessageData data);
 
 class MessageData {
   final Object sender;
@@ -10,9 +10,8 @@ class MessageData {
 }
 
 class MessagingCenter {
-  static final Map<String, StreamController<MessageData>> _messages = Map();
-  static final Map<String, StreamSubscription<MessageData>> _subscriptions =
-      Map();
+  static final Map<String, StreamController<MessageData>> _messages = {};
+  static final Map<String, StreamSubscription<MessageData>> _subscriptions = {};
 
   static void send(
     String messageKey,
@@ -27,50 +26,46 @@ class MessagingCenter {
     Object subscriber,
     MessageCallBack callBack,
   ) {
-    assert(isNotBlank(messageKey), "messageKey must not be empty");
+    assert(isNotBlank(messageKey), 'messageKey must not be empty');
 
     _createStreamCtrlByMessageKeyIfAbsent(messageKey);
 
-    String hashedKey = _getHashedKey(messageKey, subscriber);
+    final String hashedKey = _getHashedKey(messageKey, subscriber);
     assert(
       !_subscriptions.containsKey(hashedKey),
       '''You cannot subscribe to the same event (messageKey) with same 
-      subsriber, if you want to do so, please unsubscribe and resubscribe.''',
+      subscriber, if you want to do so, please unsubscribe and resubscribe.''',
     );
-    var subscription = _messages[messageKey]!.stream.listen(callBack);
+    final subscription = _messages[messageKey]!.stream.listen(callBack);
     _subscriptions[hashedKey] = subscription;
     return subscription;
   }
 
   static Future<void> unsubscribe(String messageKey, Object subscriber) async {
-    assert(isNotBlank(messageKey), "messageKey must not be empty");
+    assert(isNotBlank(messageKey), 'messageKey must not be empty');
 
-    String hashedKey = _getHashedKey(messageKey, subscriber);
-    var subscription = _subscriptions.remove(hashedKey);
+    final String hashedKey = _getHashedKey(messageKey, subscriber);
+    final subscription = _subscriptions.remove(hashedKey);
     await subscription?.cancel();
   }
 
-  static Future<void> unsubscribeAll() async {
-    for (var e in _subscriptions.keys) {
-      var subscription = _subscriptions.remove(e);
-      await subscription?.cancel();
+  static void unsubscribeAll() {
+    for (final e in List<String>.from(_subscriptions.keys)) {
+      final subscription = _subscriptions.remove(e);
+      subscription?.cancel();
     }
   }
 
-  /// Clean all streams and subscribers
-  static Future<void> clean() async {
-    var clearMessages = Future.forEach(_messages.entries,
-        (MapEntry<String, StreamController<MessageData>> e) async {
-      var streamCtrl = _messages.remove(e.key);
-      await streamCtrl?.close();
-    });
-
-    await Future.wait([unsubscribeAll(), clearMessages]);
+  /// Clean everything.
+  @visibleForTesting
+  static void clean() {
+    _subscriptions.clear();
+    _messages.clear();
   }
 
   static String _getHashedKey(String messageKey, Object subscriber) {
-    var bytes = utf8.encode(messageKey + subscriber.hashCode.toString());
-    var digest = sha256.convert(bytes);
+    final bytes = utf8.encode(messageKey + subscriber.hashCode.toString());
+    final digest = sha256.convert(bytes);
     return digest.toString();
   }
 

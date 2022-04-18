@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:flutter/widgets.dart';
 import 'package:quiver/strings.dart';
 
 part 'messaging_center.dart';
@@ -16,5 +17,5 @@ class Utilities {
 
 /// Contains static variables for items used by flutter_mvvm.
 class Constants {
-  static String newBuildContext = "NewBuildContext";
+  static String newBuildContext = 'NewBuildContext';
 }

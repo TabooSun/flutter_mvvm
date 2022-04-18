@@ -1,0 +1,7 @@
+include: package:hms_dart_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - '**.g.dart'
+    - '**/service_locator.config.dart'

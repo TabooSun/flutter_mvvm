@@ -39,7 +39,7 @@ abstract class Command<T> {
     bool handleCanExecute = false,
     void Function(VoidCallback)? customHandler,
   }) {
-    final executeIfCanHandler = () async => await executeIfCan(args: args);
+    void executeIfCanHandler() async => await executeIfCan(args: args);
     return (handleCanExecute && !canExecute)
         ? null
         : customHandler != null
@@ -51,7 +51,7 @@ abstract class Command<T> {
     this.execute, {
     Func? canExecute,
   }) {
-    this._canExecute = canExecute;
+    _canExecute = canExecute;
   }
 
   FutureOr<void> executeIfCan({T? args}) {
