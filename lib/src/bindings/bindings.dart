@@ -13,3 +13,7 @@ part 'command.dart';
 part 'mvvm_stateful_widget.dart';
 
 part 'mvvm_stateless_widget.dart';
+
+part 'view_signal_listener_mixin.dart';
+
+part 'view_signal_data.dart';

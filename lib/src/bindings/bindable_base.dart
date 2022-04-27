@@ -1,6 +1,13 @@
 part of flutter_mvvm.bindings;
 
 abstract class BindableBase extends ChangeNotifier {
+  /// A signal for publishing event to view.
+  ///
+  /// Support publishing event to [MvvmStatefulWidget] only.
+  ///
+  /// To receive events, mixin the [ViewSignalListenerMixin] to the view state.
+  final StreamController<ViewSignalData> viewSignal = StreamController();
+
   /// The view of this view model.
   Widget? boundView;
 
@@ -43,6 +50,16 @@ abstract class BindableBase extends ChangeNotifier {
 
   Future<void> unInitAsync() async {
     return Future.value(null);
+  }
+
+  void emitSignal(ViewSignalData data) {
+    viewSignal.add(data);
+  }
+
+  @override
+  void dispose() {
+    viewSignal.close();
+    super.dispose();
   }
 }
 

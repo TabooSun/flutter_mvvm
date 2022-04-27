@@ -8,7 +8,10 @@ abstract class MvvmStatefulWidget<V extends BindableBase> extends StatefulWidget
   V get bindableBase => _bindableBase;
 
   @mustCallSuper
-  const MvvmStatefulWidget(this._bindableBase, {Key? key}) : super(key: key);
+  const MvvmStatefulWidget(
+    this._bindableBase, {
+    Key? key,
+  }) : super(key: key);
 
   void dispose() {}
 }
