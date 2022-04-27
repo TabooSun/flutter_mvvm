@@ -5,7 +5,7 @@ class ViewSignalData {
 
   final dynamic data;
 
-  ViewSignalData({
+  const ViewSignalData({
     required this.signalName,
     this.data,
   });
