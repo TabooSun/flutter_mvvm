@@ -6,7 +6,8 @@ abstract class BindableBase extends ChangeNotifier {
   /// Support publishing event to [MvvmStatefulWidget] only.
   ///
   /// To receive events, mixin the [ViewSignalListenerMixin] to the view state.
-  final StreamController<ViewSignalData> viewSignal = StreamController();
+  final StreamController<ViewSignalData> viewSignal =
+      StreamController.broadcast();
 
   /// The view of this view model.
   Widget? boundView;
