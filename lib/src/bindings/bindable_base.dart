@@ -18,22 +18,15 @@ abstract class BindableBase extends ChangeNotifier {
   /// The route that renders the [boundView].
   Route<dynamic>? boundRoute;
 
-  /// ## The context from [boundView].
-  ///
-  /// This is often being assigned from the [StatelessWidget.build] or
-  /// [StatefulElement.build].
+  State? mvvmBindingWidgetState;
+
   BuildContext? _context;
 
-  /// ## The context from [boundView].
+  /// ## The context from [mvvmBindingWidgetState].
   ///
-  /// This is often being assigned from the [StatelessWidget.build] or
-  /// [StatefulElement.build].
+  /// [MvvmBindingWidget] assigns this in [_MvvmBindingWidgetState.build].
   BuildContext get context => _context ?? retrieveFallbackContext();
 
-  /// ## The context from [boundView].
-  ///
-  /// This is often being assigned from the [StatelessWidget.build] or
-  /// [StatefulElement.build].
   set context(BuildContext context) {
     _context = context;
   }

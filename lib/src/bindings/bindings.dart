@@ -3,6 +3,7 @@ library flutter_mvvm.bindings;
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 part 'bindable_base.dart';
 
@@ -17,3 +18,5 @@ part 'mvvm_stateless_widget.dart';
 part 'view_signal_listener_mixin.dart';
 
 part 'view_signal_data.dart';
+
+part 'mvvm_binding_widget.dart';
