@@ -1,6 +1,6 @@
 name: flutter_mvvm
 description: A new Flutter package for MVVM.
-version: 2.4.0
+version: 3.0.0
 
 environment:
   sdk: '>=2.17.0 <3.0.0'
