@@ -1,5 +1,7 @@
-import 'package:example/views/command_usage/command_usage.dart';
+import 'package:example/views/command_usage/command_usage_view.dart';
 import 'package:example/views/command_usage/command_usage_view_model.dart';
+import 'package:example/views/view_signal_usage/view_signal_usage_view.dart';
+import 'package:example/views/view_signal_usage/view_signal_usage_view_model.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -44,10 +46,44 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final CommandUsageViewModel vm = CommandUsageViewModel();
-
   @override
   Widget build(BuildContext context) {
-    return CommandUsageView(vm);
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      final CommandUsageViewModel vm = CommandUsageViewModel();
+                      return CommandUsageView(vm);
+                    },
+                  ),
+                );
+              },
+              child: const Text('Command usage'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      final vm = ViewSignalUsageViewModel();
+                      return ViewSignalUsageView(vm);
+                    },
+                  ),
+                );
+              },
+              child: const Text('View signal usage'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

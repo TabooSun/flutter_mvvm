@@ -9,11 +9,17 @@ class CommandUsageView extends MvvmStatefulWidget<CommandUsageViewModel> {
   }) : super(vm);
 
   @override
-  CommandUsageState createState() => CommandUsageState();
+  _CommandUsageViewState createState() => _CommandUsageViewState();
 }
 
-class CommandUsageState extends State<CommandUsageView> {
-  CommandUsageState();
+class _CommandUsageViewState extends State<CommandUsageView> {
+  _CommandUsageViewState();
+
+  @override
+  void initState() {
+    widget.bindableBase.initAsync(param: const InitParam());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

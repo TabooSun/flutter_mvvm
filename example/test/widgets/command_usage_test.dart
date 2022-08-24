@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:example/views/command_usage/command_usage.dart';
+import 'package:example/views/command_usage/command_usage_view.dart';
 import 'package:example/views/command_usage/command_usage_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/flutter_mvvm.dart';
