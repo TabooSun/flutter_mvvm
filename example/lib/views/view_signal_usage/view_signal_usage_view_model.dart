@@ -4,11 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mvvm/flutter_mvvm.dart';
 
 class ViewSignalUsageViewModel extends BindableBase {
-  late final Command<void, String> updateTextCommand;
+  late final Command<void, String> updateTextCommand =
+      AppCommand<void, String>.withArgument(_updateText);
 
-  ViewSignalUsageViewModel() {
-    updateTextCommand = AppCommand<void, String>.withArgument(_updateText);
-  }
+  ViewSignalUsageViewModel();
 
   @override
   BuildContext retrieveFallbackContext() {

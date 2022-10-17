@@ -24,30 +24,26 @@ class CommandUsageViewModel extends BindableBase {
 
   DateTime get selectedDate => _selectedDate;
 
-  late final Command<void, void> displayEmptyCommand;
-  late final Command<void, String> displayInputValueCommand;
-  late final Command<Future<void>, void> displayFutureEmptyCommand;
-  late final Command<void, void> displayEmptyWhenCanCommand;
-  late final Command<void, DateTime> selectDateCommand;
+  late final Command<void, void> displayEmptyCommand = AppCommand(
+    _displayEmpty,
+  );
+  late final Command<void, String> displayInputValueCommand =
+      AppCommand<void, String>.withArgument(
+    _displayInputValue,
+  );
+  late final Command<Future<void>, void> displayFutureEmptyCommand = AppCommand(
+    _displayFutureEmptyAsync,
+  );
+  late final Command<void, void> displayEmptyWhenCanCommand = AppCommand(
+    _displayEmpty,
+    canExecute: () => canUpdate,
+  );
+  late final Command<void, DateTime> selectDateCommand =
+      AppCommand<void, DateTime>.withArgument(
+    _selectDate,
+  );
 
-  CommandUsageViewModel() {
-    displayEmptyCommand = AppCommand(
-      _displayEmpty,
-    );
-    displayInputValueCommand = AppCommand<void, String>.withArgument(
-      _displayInputValue,
-    );
-    displayFutureEmptyCommand = AppCommand(
-      _displayFutureEmptyAsync,
-    );
-    displayEmptyWhenCanCommand = AppCommand(
-      _displayEmpty,
-      canExecute: () => canUpdate,
-    );
-    selectDateCommand = AppCommand<void, DateTime>.withArgument(
-      _selectDate,
-    );
-  }
+  CommandUsageViewModel();
 
   void _displayEmpty() {
     _title = 'Empty';
